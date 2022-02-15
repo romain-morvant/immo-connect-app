@@ -5,6 +5,7 @@
 
 # config
 firebase.config.js
+/.idea
 
 # production
 /build
