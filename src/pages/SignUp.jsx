@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg';
 import visibilityIcon from '../assets/svg/visibilityIcon.svg';
@@ -29,6 +30,7 @@ function SignUp() {
     try {
       const auth = getAuth();
 
+      // Ici on enregistre l'utilisateur grâce à la fonction crée à cet effet
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
       const user = userCredential.user;
@@ -36,6 +38,17 @@ function SignUp() {
       updateProfile(auth.currentUser, {
         displayName: name
       });
+
+      // On récupère ce que contient le formData, qu'on stocke dans une copie afin d'en retirer le mot de passe avant son stockage en BDD (Firestore)
+      const formDataCopy = { ...formData };
+      // Nous ne voulons pas enregistrer le mot de passe utilisateur.
+      // La méthode delete le retire donc de l'objet formData
+      delete formDataCopy.password;
+      // Lorsque l'utilisateur sera envoyé, la date sera ajoutée automatiquement
+      formDataCopy.timestamp = serverTimestamp();
+
+      // Ici j'envoie mon utilisateur dans la collection 'users' de ma BDD
+      await setDoc(doc(db, 'users', user.uid), formDataCopy);
 
       navigate('/');
     } catch (error) {
