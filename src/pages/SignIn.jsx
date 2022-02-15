@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg';
@@ -34,7 +35,7 @@ function SignIn() {
       }
 
     } catch (error) {
-      console.log(error);
+      toast.error('Mauvais paramètres');
     }
 
     const auth = getAuth();
@@ -50,14 +51,14 @@ function SignIn() {
     <>
       <div className='pageContainer'>
         <header>
-          <p className='pageHeader'>Welcome Back!</p>
+          <p className='pageHeader'>Heureux de vous revoir !</p>
         </header>
 
         <form onSubmit={onSubmit}>
           <input
             type='email'
             className='emailInput'
-            placeholder='Email'
+            placeholder='Votre email'
             id='email'
             value={email}
             onChange={onChange}
@@ -67,7 +68,7 @@ function SignIn() {
             <input
               type={showPassword ? 'text' : 'password'}
               className='passwordInput'
-              placeholder='Password'
+              placeholder='Votre mot de passe'
               id='password'
               value={password}
               onChange={onChange}
@@ -75,18 +76,18 @@ function SignIn() {
 
             <img
               src={visibilityIcon}
-              alt='show password'
+              alt='Afficher le mot de passe'
               className='showPassword'
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           </div>
 
           <Link to='/forgot-password' className='forgotPasswordLink'>
-            Forgot Password
+            Mot de passe oublié ?
           </Link>
 
           <div className='signInBar'>
-            <p className='signInText'>Sign In</p>
+            <p className='signInText'>Connexion</p>
             <button className='signInButton'>
               <ArrowRightIcon fill='#ffffff' width='34px' height='34px' />
             </button>
@@ -94,7 +95,7 @@ function SignIn() {
         </form>
 
         <Link to='/sign-up' className='registerLink'>
-          Sign Up Instead
+          S'inscrire
         </Link>
       </div>
     </>

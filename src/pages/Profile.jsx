@@ -11,6 +11,7 @@ function Profile() {
   }, []);
 
 
+  // Si l'utilisateur est connecté, j'affiche son nom, sinon j'informe le visiteur qu'il est introuvable
   return user ? <h1>{user.displayName}</h1> : 'Utilisateur Introuvable ..';
 }
 

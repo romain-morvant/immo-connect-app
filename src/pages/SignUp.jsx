@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
@@ -52,7 +53,7 @@ function SignUp() {
 
       navigate('/');
     } catch (error) {
-      console.log(error);
+      toast.error("Il semblerait qu'il y ait un problème..");
     }
   };
 
@@ -60,14 +61,14 @@ function SignUp() {
     <>
       <div className='pageContainer'>
         <header>
-          <p className='pageHeader'>Welcome Back!</p>
+          <p className='pageHeader'>Heureux de vous compter parmis nous !</p>
         </header>
 
         <form onSubmit={onSubmit}>
           <input
             type='name'
             className='nameInput'
-            placeholder='Name'
+            placeholder='Votre nom'
             id='name'
             value={name}
             onChange={onChange}
@@ -75,7 +76,7 @@ function SignUp() {
           <input
             type='email'
             className='emailInput'
-            placeholder='Email'
+            placeholder='Votre mail'
             id='email'
             value={email}
             onChange={onChange}
@@ -85,7 +86,7 @@ function SignUp() {
             <input
               type={showPassword ? 'text' : 'password'}
               className='passwordInput'
-              placeholder='Password'
+              placeholder='Votre mot de passe'
               id='password'
               value={password}
               onChange={onChange}
@@ -93,18 +94,18 @@ function SignUp() {
 
             <img
               src={visibilityIcon}
-              alt='show password'
+              alt='Afficher le mot de passe'
               className='showPassword'
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           </div>
 
           <Link to='/forgot-password' className='forgotPasswordLink'>
-            Forgot Password
+            Mot de passe oublié ?
           </Link>
 
           <div className='signUpBar'>
-            <p className='signUpText'>Sign Up</p>
+            <p className='signUpText'>Inscription</p>
             <button className='signUpButton'>
               <ArrowRightIcon fill='#ffffff' width='34px' height='34px' />
             </button>
@@ -112,7 +113,7 @@ function SignUp() {
         </form>
 
         <Link to='/sign-in' className='registerLink'>
-          Sign In Instead
+          Se connecter
         </Link>
       </div>
     </>
