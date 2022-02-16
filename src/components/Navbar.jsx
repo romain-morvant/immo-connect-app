@@ -30,7 +30,7 @@ function Navbar() {
                   : 'navbarListItemName'
               }
             >
-              Explore
+              Parcourir
             </p>
           </li>
           <li className='navbarListItem' onClick={() => navigate('/offers')}>
@@ -46,7 +46,7 @@ function Navbar() {
                   : 'navbarListItemName'
               }
             >
-              Offer
+              Offres
             </p>
           </li>
           <li className='navbarListItem' onClick={() => navigate('/profile')}>
@@ -62,7 +62,7 @@ function Navbar() {
                   : 'navbarListItemName'
               }
             >
-              Profile
+              Profil
             </p>
           </li>
         </ul>

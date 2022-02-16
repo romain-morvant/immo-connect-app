@@ -6,7 +6,7 @@ function Explore() {
   return (
     <div className="explore">
       <header>
-        <p className="pageHeader">Explore</p>
+        <p className="pageHeader">Quel type de bien recherchez vous ?</p>
       </header>
       <main>
         {/* Slider */}
