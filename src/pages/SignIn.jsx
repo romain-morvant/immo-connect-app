@@ -95,7 +95,7 @@ function SignIn() {
         </form>
 
         <Link to='/sign-up' className='registerLink'>
-          S'inscrire
+          Vous n'avez pas encore de compte ?
         </Link>
       </div>
     </>
