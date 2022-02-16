@@ -16,7 +16,7 @@ function ForgotPassword() {
       const auth = getAuth()
 
       await sendPasswordResetEmail(auth, email)
-      toast.success('Votre lien de récupération ne devrait pas tarder :)')
+      toast.success('Votre lien de récupération a été envoyé :)')
     } catch (error) {
       toast.error("Il semblerait que nous ayons un problème ..")
     }
