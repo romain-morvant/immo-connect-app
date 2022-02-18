@@ -81,6 +81,7 @@ function CreateListing() {
             return
         }
 
+        // Cet objet contiendra la latitude et la longitude
         let geolocation = {}
         let location
 
@@ -152,7 +153,7 @@ function CreateListing() {
             [...images].map((image) => storeImage(image))
         ).catch(() => {
             setLoading(false)
-            toast.error('Images not uploaded')
+            toast.error("Vos images n'ont pas été ajoutées ..")
             return
         })
 
@@ -170,7 +171,7 @@ function CreateListing() {
 
         const docRef = await addDoc(collection(db, 'listings'), formDataCopy)
         setLoading(false)
-        toast.success('Listing saved')
+        toast.success('Votre bien à été correctement ajouté !')
         navigate(`/category/${formDataCopy.type}/${docRef.id}`)
     }
 
