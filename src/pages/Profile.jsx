@@ -51,7 +51,7 @@ function Profile() {
   };
 
 
-  // Si l'utilisateur est connecté, j'affiche son nom, sinon j'informe le visiteur qu'il est introuvable
+  // Si l'utilisateur est connecté, j'affiche son nom, sinon je l'informe qu'il est introuvable
   return <div className='profile'>
     <header className="profileHeader">
       <p className="pageHeader">Mon Profil</p>
