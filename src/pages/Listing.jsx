@@ -30,6 +30,7 @@ function Listing() {
         fetchListing()
     }, [navigate, params.listingId])
 
+    // if loading is true, we return a spinner
     if (loading) {
         return <Spinner />
     }
@@ -47,11 +48,12 @@ function Listing() {
             <img src={shareIcon} alt="Icône partage" />
         </div>
 
+        {/*If the link is actually copied, we'll show a paragraph telling the user that the link is copied*/}
         {shareLinkCopied && <p className="linkCopied" >Lien Copié !</p>}
 
         <div className="listingDetails">
             <p className="listingName">
-                {listing.name} -
+                {listing.name } -
                 {listing.offer
                     ? listing.discountedPrice
                     : listing.regularPrice} €
@@ -78,6 +80,7 @@ function Listing() {
 
             {/* MAP */}
 
+            {/*Add a link to contact the landlord if it's not that user's listing*/}
             {auth.currentUser?.uid !== listing.userRef && (
                 <Link
                     to={`/contact/${listing.userRef}?listingName=${listing.name}&listingLocation=${listing.location}`}
