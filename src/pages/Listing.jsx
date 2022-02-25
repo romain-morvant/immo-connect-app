@@ -83,7 +83,7 @@ function Listing() {
             {/*Add a link to contact the landlord if it's not that user's listing*/}
             {auth.currentUser?.uid !== listing.userRef && (
                 <Link
-                    to={`/contact/${listing.userRef}?listingName=${listing.name}&listingLocation=${listing.location}`}
+                    to={`/contact/${listing.userRef}?listingName=${listing.name}`}
                     className='primaryButton'
                 >
                     Contacter le propriétaire
