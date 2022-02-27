@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase.config";
-import { toast } from "react-toastify";
+import { useState, useEffect } from "react"
+import { useParams, useSearchParams } from "react-router-dom"
+import { doc, getDoc } from "firebase/firestore"
+import { db } from "../firebase.config"
+import { toast } from "react-toastify"
 
 function Contact() {
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState("")
   const [landlord, setLandlord] = useState(null)
   const [searchParams, setSearchParams] = useSearchParams()
 
@@ -13,14 +13,14 @@ function Contact() {
 
   useEffect(() => {
     const getLandlord = async () => {
-      const docRef = doc(db, 'users', params.landlordId)
+      const docRef = doc(db, "users", params.landlordId)
       const docSnap = await getDoc(docRef)
 
       if (docSnap.exists()) {
         setLandlord(docSnap.data())
-        console.log('Bloubi');
+        console.log("Bloubi")
       } else {
-        toast.error('Données du propriétaire introuvables')
+        toast.error("Données du propriétaire introuvables")
       }
     }
 
@@ -29,9 +29,8 @@ function Contact() {
 
   const onChange = (e) => setMessage(e.target.value)
 
-
   return (
-    <div className='pageContainer' >
+    <div className="pageContainer">
       <header className="pageHeader">Contacter le propriétaire</header>
       {landlord !== null && (
         <main>
@@ -43,10 +42,22 @@ function Contact() {
               <label htmlFor="message" className="messageLabel">
                 Message
               </label>
-              <textarea name="message" id="message" className="textarea" value={message} onChange={onChange}></textarea>
+              <textarea
+                name="message"
+                id="message"
+                className="textarea"
+                value={message}
+                onChange={onChange}
+              ></textarea>
             </div>
-            <a href={`mailto:${landlord.email}?Subject=${searchParams.get('listingName')}&body=${message}`}>
-              <button type="button" className="primaryButton">Envoyer</button>
+            <a
+              href={`mailto:${landlord.email}?Subject=${searchParams.get(
+                "listingName"
+              )}&body=${message}`}
+            >
+              <button type="button" className="primaryButton">
+                Envoyer
+              </button>
             </a>
           </form>
         </main>

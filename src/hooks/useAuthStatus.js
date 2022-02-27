@@ -1,32 +1,31 @@
-import { useEffect, useState, useRef } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState, useRef } from "react"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
 
 export const useAuthStatus = () => {
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [checkingStatus, setCheckingStatus] = useState(true);
-    // Lorsque l'on vérifiera si l'utilisateur est connecté ou non, le state 'checkingStatus' sera true, mais dès qure l'on recevra la réponse, il passera à false et le state 'loggedIn' passera à true.
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [checkingStatus, setCheckingStatus] = useState(true)
+  // Lorsque l'on vérifiera si l'utilisateur est connecté ou non, le state 'checkingStatus' sera true, mais dès qure l'on recevra la réponse, il passera à false et le state 'loggedIn' passera à true.
 
-    const isMounted = useRef(true);
+  const isMounted = useRef(true)
 
-    useEffect(() => {
-        if (isMounted) {
-            const auth = getAuth()
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    setLoggedIn(true);
-                }
-                setCheckingStatus(false);
-            })
+  useEffect(() => {
+    if (isMounted) {
+      const auth = getAuth()
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setLoggedIn(true)
         }
+        setCheckingStatus(false)
+      })
+    }
 
-        return () => {
-            isMounted.current = false
-        }
-    }, [isMounted])
+    return () => {
+      isMounted.current = false
+    }
+  }, [isMounted])
 
-    return { loggedIn, checkingStatus };
-};
-
+  return { loggedIn, checkingStatus }
+}
 
 // Protected routes àver react-router-dom v6
 // https://stackoverflow.com/questions/65505665/protected-route-with-firebase

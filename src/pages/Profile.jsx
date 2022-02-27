@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { getAuth, updateProfile } from "firebase/auth";
+import { useState, useEffect } from "react"
+import { getAuth, updateProfile } from "firebase/auth"
 import {
   updateDoc,
   doc,
@@ -9,57 +9,57 @@ import {
   where,
   orderBy,
   deleteDoc,
-} from "firebase/firestore";
-import { db } from "../firebase.config";
-import { useNavigate, Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import ListingItem from "../components/ListingItem";
-import arrowRight from "../assets/svg/keyboardArrowRightIcon.svg";
-import homeIcon from "../assets/svg/homeIcon.svg";
+} from "firebase/firestore"
+import { db } from "../firebase.config"
+import { useNavigate, Link } from "react-router-dom"
+import { toast } from "react-toastify"
+import ListingItem from "../components/ListingItem"
+import arrowRight from "../assets/svg/keyboardArrowRightIcon.svg"
+import homeIcon from "../assets/svg/homeIcon.svg"
 
 function Profile() {
-  const auth = getAuth();
-  const [loading, setLoading] = useState(false);
-  const [listings, setListings] = useState(null);
-  const [changeDetails, setChangeDetails] = useState(false);
+  const auth = getAuth()
+  const [loading, setLoading] = useState(false)
+  const [listings, setListings] = useState(null)
+  const [changeDetails, setChangeDetails] = useState(false)
   const [formData, setFormData] = useState({
     name: auth.currentUser.displayName,
     email: auth.currentUser.email,
-  });
+  })
 
-  const { name, email } = formData;
+  const { name, email } = formData
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchUserListings = async () => {
-      const listingsRef = collection(db, "listings");
+      const listingsRef = collection(db, "listings")
       const q = query(
         listingsRef,
         where("userRef", "==", auth.currentUser.uid),
         orderBy("timestamp", "desc")
-      );
-      const querySnap = await getDocs(q);
+      )
+      const querySnap = await getDocs(q)
 
-      const listings = [];
+      const listings = []
 
       querySnap.forEach((doc) => {
         return listings.push({
           id: doc.id,
           data: doc.data(),
-        });
-      });
+        })
+      })
 
-      setListings(listings);
-    };
+      setListings(listings)
+    }
 
-    fetchUserListings();
-  }, [auth.currentUser.uid]);
+    fetchUserListings()
+  }, [auth.currentUser.uid])
 
   const onLogout = () => {
-    auth.signOut();
-    navigate("/");
-  };
+    auth.signOut()
+    navigate("/")
+  }
 
   const onSubmit = async () => {
     try {
@@ -67,36 +67,36 @@ function Profile() {
         // Mise à jour du nom affiché dans Firebase
         await updateProfile(auth.currentUser, {
           displayName: name,
-        });
+        })
 
         // Mise à jour dans le Firestore (BDD)
-        const userRef = doc(db, "users", auth.currentUser.uid);
+        const userRef = doc(db, "users", auth.currentUser.uid)
         await updateDoc(userRef, {
           name,
-        });
+        })
       }
     } catch (error) {
-      toast.error("Mise à jour impossible des informations personnelles");
+      toast.error("Mise à jour impossible des informations personnelles")
     }
-  };
+  }
 
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
-    }));
-  };
+    }))
+  }
 
   const onDelete = async (listingId) => {
     if (window.confirm("Êtes vous sûr de vouloir supprimer cette annonce ?")) {
-      await deleteDoc(doc(db, "listings", listingId));
+      await deleteDoc(doc(db, "listings", listingId))
       const updatedListings = listings.filter(
         (listing) => listing.id !== listingId
-      );
-      setListings(updatedListings);
-      toast.success("Votre annonce à bien été supprimée");
+      )
+      setListings(updatedListings)
+      toast.success("Votre annonce à bien été supprimée")
     }
-  };
+  }
 
   // Si l'utilisateur est connecté, j'affiche son nom, sinon je l'informe qu'il est introuvable
   return (
@@ -113,8 +113,8 @@ function Profile() {
           <p
             className="changePersonalDetails"
             onClick={() => {
-              changeDetails && onSubmit();
-              setChangeDetails((prevState) => !prevState);
+              changeDetails && onSubmit()
+              setChangeDetails((prevState) => !prevState)
             }}
           >
             {changeDetails ? "fait" : "modifier"}
@@ -164,7 +164,7 @@ function Profile() {
         )}
       </main>
     </div>
-  );
+  )
 }
 
-export default Profile;
+export default Profile
