@@ -1,49 +1,37 @@
 import { Link } from "react-router-dom"
-import { ReactComponent as DeleteIcon } from "../assets/svg/deleteIcon.svg"
-import bedIcon from "../assets/svg/bedIcon.svg"
-import bathtubIcon from "../assets/svg/bathtubIcon.svg"
+import { ReactComponent as DeleteIcon } from '../assets/svg/deleteIcon.svg'
+import bedIcon from '../assets/svg/bedIcon.svg'
+import bathtubIcon from '../assets/svg/bathtubIcon.svg'
 
 const ListingItem = ({ listing, id, onDelete }) => {
   return (
     <li className="categoryListing">
-      <Link
-        to={`/category/${listing.type}/${id}`}
-        className="categoryListingLink"
-      >
-        <img
-          src={listing.imgUrls[0]}
-          alt={listing.name}
-          className="categoryListingImg"
-        />
+      <Link to={`/category/${listing.type}/${id}`} className='categoryListingLink'>
+        <img src={listing.imgUrls[0]} alt={listing.name} className='categoryListingImg' />
         <div className="ccategoryListingDetails">
-          <p className="categoryListingLocation">{listing.location}</p>
-          <p className="categoryListingName">{listing.name}</p>
+          <p className="categoryListingLocation">
+            {listing.location}
+          </p>
+          <p className="categoryListingName">
+            {listing.name}
+          </p>
           <p className="categoryListingPrice">
-            {listing.offer ? listing.discountedPrice : listing.regularPrice} €{" "}
-            {listing.type === "rent" && "/ mois"}
+            {listing.offer ? listing.discountedPrice : listing.regularPrice} € {listing.type === 'rent' && '/ mois'}
           </p>
           <div className="categoryListingInfoDiv">
             <img src={bedIcon} alt="Lit" />
             <p className="categoryListingInfoText">
-              {listing.bedrooms > 1
-                ? `${listing.bedrooms} Chambres`
-                : "1 Chambre"}
+              {listing.bedrooms > 1 ? `${listing.bedrooms} Chambres` : '1 Chambre'}
             </p>
             <img src={bathtubIcon} alt="Baignoire" />
             <p className="categoryListingInfoText">
-              {listing.bathrooms > 1
-                ? `${listing.bathrooms} Salles de bain`
-                : "1 Salle de bain"}
+              {listing.bathrooms > 1 ? `${listing.bathrooms} Salles de bain` : '1 Salle de bain'}
             </p>
           </div>
         </div>
       </Link>
       {onDelete && (
-        <DeleteIcon
-          className="removeIcon"
-          fill="rgb(231,76,60)"
-          onClick={() => onDelete(listing.id, listing.name)}
-        />
+        <DeleteIcon className='removeIcon' fill='rgb(231,76,60)' onClick={() => onDelete(listing.id, listing.name)} />
       )}
     </li>
   )
